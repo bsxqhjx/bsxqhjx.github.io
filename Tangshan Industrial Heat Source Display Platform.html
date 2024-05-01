@@ -46,7 +46,7 @@
 
 .subtitle {
 
-    bottom: 1px; /* 调整字幕位置 */
+    bottom: 1px; 
     right: 0;
    
     animation: moveSubtitle 40s infinite;
@@ -109,8 +109,8 @@
         background: rgba(255, 255, 255, 0.8);
         border-radius: 50%;
         box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
-        visibility: hidden; /* 初始不可见 */
-        z-index: 10000; /* 确保显示在其他内容上方 */
+        visibility: hidden; 
+        z-index: 10000; 
     }
  .header img {
  width: 3%;
@@ -186,12 +186,12 @@
     }
     75% {
         transform: scale(1.2) rotate(20deg);
-        background-color: #ffeb3b; /* 亮黄色变化 */
+        background-color: #ffeb3b;
         box-shadow: 0 0 20px #ffeb3b;
     }
     100% {
         transform: scale(1) rotate(0deg);
-        background-color: #4CAF50; /* 恢复到初始颜色 */
+        background-color: #4CAF50;
         box-shadow: 0 0 10px #4CAF50;
     }
 }
@@ -239,7 +239,6 @@
         opacity: 0;  
     }
 }
-
 
 
 
@@ -334,18 +333,18 @@ document.addEventListener('DOMContentLoaded', function() {
             lightning.style.top = y + 'px';
             lightning.style.visibility = 'visible';
 
-            // 设置元素消失的动画
+            
             setTimeout(function() {
                 lightning.style.transform = 'scale(0.8)';
                 lightning.style.opacity = '0';
                 setTimeout(function() {
                     document.body.removeChild(lightning);
-                }, 500); // 500毫秒后完全移除元素
-            }, 70); // 50毫秒后开始消失
+                }, 500); 
+            }, 70); 
         }
 
         document.addEventListener('mousemove', function(e) {
-            createLightning(e.clientX - 5, e.clientY - 5); // 创建流光元素，微调位置使其中心跟随鼠标
+            createLightning(e.clientX - 5, e.clientY - 5); 
         });
     });
 
@@ -359,12 +358,12 @@ function changeSlide(step) {
     document.getElementById('imageDisplay').src = images[currentIndex];
     document.getElementById('textDisplay').innerHTML = texts[currentIndex]; 
 
-    if (currentIndex === 5) { // 如果是第六个文本
+    if (currentIndex === 5) { 
         document.getElementById('submitForm').addEventListener('click', function() {
             alert("Form submitted! Please continue to follow our website, where the latest research findings will be published in the future.");
 var button = document.getElementById('submitForm');
 button.classList.add('buttonCoolEffect');
-// 一次动画完成后移除类，以便下次点击再次触发动画
+
         button.addEventListener('animationend', function() {
             button.classList.remove('buttonCoolEffect');
         });
@@ -382,15 +381,15 @@ document.addEventListener('DOMContentLoaded', function() {
             var animationElement = document.getElementById('successAnimation');
             animationElement.style.display = 'block';
 
-            // 重置动画
+            
             animationElement.style.animation = 'none';
-            animationElement.offsetHeight; /* 触发重排 */
+            animationElement.offsetHeight;
             animationElement.style.animation = null; 
 
           
             setTimeout(function() {
                 animationElement.style.display = 'none';
-            }, 2000); // 动画持续时间后隐藏
+            }, 2000); 
 
             alert("Form submitted! We will contact you soon.");
         });
