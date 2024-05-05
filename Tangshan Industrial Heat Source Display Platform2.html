@@ -422,7 +422,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    var logo = document.querySelector('.animated-logo');
+    logo.addEventListener('animationend', function() {
+        logo.style.display = 'none'; 
+    });
+});
 
+        
     </script>
 <div class="logo-container">
     <img src="./AMERS1.png" alt="Logo Animation" class="animated-logo">
