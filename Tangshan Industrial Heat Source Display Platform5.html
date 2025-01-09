@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar PV Display Platform</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 98%;
+            font-family: Arial, sans-serif;
+            background: #404040;
+            color: #FFFFFF;
+cursor: url('http://picture.gptkong.com/20240504/1dc50ce4ea2c4cc89dccbd2cf5648945.png') 1 1, auto;
+        }
+.header {
+    background-color: #000000; 
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 24px;
+    text-shadow: 0 0 2px #fff, 0 0 4px #fff, 0 0 6px #ffffff; 
+}
+
+.cursor-follower {
+        position: fixed;
+        pointer-events: none; 
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.75);
+        transform: translate(-50%, -50%);
+        transition: transform 0.1s, width 0.2s, height 0.2s; 
+        z-index: 10000; 
+    }
+        .container {
+            display: flex;
+            height: calc(100% - 30px); 
+        }
+        .left-panel {
+            width: 70%;
+            background-color: #333333;
+            padding: 15px;
+            overflow-y: auto;
+        } 
+
+.subtitle {
+
+    bottom: 1px; 
+    right: 0;
+   
+    animation: moveSubtitle 40s infinite;
+}
+
+@keyframes moveSubtitle {
+    0% {
+        transform: translateX(100%);
+        visibility: visible;
+    }
+    40%, 70% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-100%);
+        visibility: hidden;
+    }
+}
+
+
+
+
+
+        .right-panel {
+            width: 30%;
+            background-color:#273746;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .image-slider {
+            width: 100%;
+            position: relative;
+        }
+        .button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #fff;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .prev {
+            left: 10px;
+        }
+        .next {
+            right: 10px;
+        }
+        img {
+            width: 100%;
+            height: auto;
+        }
+
+.lightning {
+    position: fixed;
+    pointer-events: none;
+    width: 2px;
+    height: 300px;
+    background: linear-gradient(to bottom right, blue, blue 50%, white 50%, white);
+    visibility: hidden;
+    z-index: 10000;
+}
+
+
+body:hover .lightning {
+    visibility: visible;
+    animation: flashLightning 0.6s forwards;
+}
+
+@keyframes flashLightning {
+    0% {
+        visibility: hidden;
+        transform: scale(0.1) rotate(45deg);
+    }
+    50% {
+        visibility: visible;
+        transform: scale(1) rotate(-45deg);
+    }
+    100% {
+        visibility: hidden;
+        transform: scale(0.1) rotate(-45deg);
+    }
+}
+ .header img {
+ width: 3%;
+            height: auto;
+            vertical-align: middle;  
+            margin-right: 10px;  
+        }
+.text-content {
+    text-align: left; 
+    font-family: 'Times New Roman', Times, serif; 
+    margin-top: 20px;
+    font-size: 16px;
+    color: white;
+}
+        .footer {
+            background-color:  #000000;
+            color: white;
+            text-align: center;
+            padding: 5px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+
+#contactForm {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    background: #f1f1f1;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+#contactForm input[type="text"],
+#contactForm input[type="email"],
+#contactForm select,
+#contactForm textarea {
+    padding: 8px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+
+#contactForm button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#contactForm button:hover {
+    background-color: #45a049;
+}
+
+@keyframes superCoolEffect {
+    0% {
+        transform: scale(1) rotate(0deg);
+        background-color: #4CAF50; 
+        box-shadow: 0 0 10px #4CAF50;
+    }
+    25% {
+        transform: scale(1.2) rotate(20deg);
+        background-color: #ff4081; 
+        box-shadow: 0 0 20px #ff4081;
+    }
+    50% {
+        transform: scale(1.4) rotate(-20deg);
+        background-color: #3f51b5;
+        box-shadow: 0 0 30px #3f51b5;
+    }
+    75% {
+        transform: scale(1.2) rotate(20deg);
+        background-color: #ffeb3b;
+        box-shadow: 0 0 20px #ffeb3b;
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        background-color: #4CAF50; 
+        box-shadow: 0 0 10px #4CAF50;
+    }
+}
+
+.buttonCoolEffect {
+    animation: superCoolEffect 1s ease forwards;
+}
+
+
+
+
+.logo-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;  
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.animated-logo {
+    width: 100%;
+    animation: logoAppear 7s ease-in-out forwards;
+}
+
+@keyframes logoAppear {
+    0% {
+        transform: rotateY(180deg) scale(0.1);
+        opacity: 1;
+    }
+    50% { 
+        transform: rotateY(0deg) scale(2);
+        opacity: 1;
+    }
+
+    70% {  
+        transform: rotateY(0deg) scale(2);
+        opacity: 1;
+    }
+    100% {
+        transform: rotateY(0deg) scale(1);
+        opacity: 0;  
+    }
+}
+
+
+
+
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="./CCUG.png" alt="Logo">
+        Solar PV Development in China Display Platform
+    </div>
+    <div class="container">
+        <div class="left-panel">
+
+<iframe src="https://www.arcgis.com/apps/instant/basic/index.html?appid=da0439687bba45ebafe91ec3cb1728ca" width="100%" height="94%" frameborder="0" style="border:0" allowfullscreen>iFrames are not supported on this page.</iframe>
+
+<div class="subtitle">Please note: This webpage will continue to be updated. Stay tuned for future announcements.</div>
+        </div>
+        <div class="right-panel">
+            <div class="image-slider">
+                <button class="button prev" onclick="changeSlide(-1)">＜</button>
+                <img id="imageDisplay" src="./a1.png">
+                <button class="button next" onclick="changeSlide(1)">＞</button>
+            </div>
+            <div class="text-content" id="textDisplay">
+1.Solar energy, as an environmentally sustainable power source, is gaining increasing popularity worldwide, driving a surge in the number of solar photovoltaic (PV) plants. China, which has a prominent role in this domain, requires continuous updates to its PV plant data for spatiotemporal analyses. However, there remains an absence of a comprehensive and timely dataset of PV plants across China, leaving PV installation dates and other crucial attributes for comprehensive analyses underexplored. This study leverages Sentinel-2 data as a primary source to propose an optimized deep learning approach for PV plant extraction in China. Statistical analyses of PV plant attributes, including its installation date, size, site slope, and site land cover, were implemented from multiple data sources. Comprehensive analyses were conducted to unravel their spatiotemporal development patterns in the 21st century. The results indicate that as of 2023, China boasts 4347 PV plants, collectively spanning 4146 km2, which are predominantly concentrated in Northwest and North China. 2016 and 2017 marked substantial growth in China's PV plants, while other years exhibited stability. These plants exhibit the distinct spatial characteristics of installing smaller PV plants on flat terrain covered by vegetation or barren land. Over time, a notable trend in the installation of China's PV plants has been the increasing preference for establishing larger ones in smooth terrain, with a focus on preventing damage to natural resources. The results reveal China's optimization of PV plant site selection and construction strategies, aligning with global environmental goals and sustainable energy practices..   Tips:Click the < > arrows to navigate between pages.
+            </div>
+
+        </div>
+    </div>
+
+    <div class="footer">
+        Copyright © 2024 WZR/HJX All Rights Reserved.
+    </div>
+    <script>
+var images = [
+    "./a1.png",
+    "./a2.png",
+    "./a3.png",
+    "./a4.png",
+    "./a5.png",
+    "./a6.png"
+];
+        var texts = [
+            "1.Solar energy, as an environmentally sustainable power source, is gaining increasing popularity worldwide, driving a surge in the number of solar photovoltaic (PV) plants. China, which has a prominent role in this domain, requires continuous updates to its PV plant data for spatiotemporal analyses. However, there remains an absence of a comprehensive and timely dataset of PV plants across China, leaving PV installation dates and other crucial attributes for comprehensive analyses underexplored. This study leverages Sentinel-2 data as a primary source to propose an optimized deep learning approach for PV plant extraction in China. Statistical analyses of PV plant attributes, including its installation date, size, site slope, and site land cover, were implemented from multiple data sources. Comprehensive analyses were conducted to unravel their spatiotemporal development patterns in the 21st century. The results indicate that as of 2023, China boasts 4347 PV plants, collectively spanning 4146 km2, which are predominantly concentrated in Northwest and North China. 2016 and 2017 marked substantial growth in China's PV plants, while other years exhibited stability. These plants exhibit the distinct spatial characteristics of installing smaller PV plants on flat terrain covered by vegetation or barren land. Over time, a notable trend in the installation of China's PV plants has been the increasing preference for establishing larger ones in smooth terrain, with a focus on preventing damage to natural resources. The results reveal China's optimization of PV plant site selection and construction strategies, aligning with global environmental goals and sustainable energy practices..   Tips:Click the < > arrows to navigate between pages.",
+            "2.To map PV plants in China with improved accuracy and timeliness, Sentinel-2 Level-1C imagery (10 m resolution) from 2023 was used as the primary data source. After cloud removal and median compositing via Google Earth Engine, a two-step deep learning approach was applied. First, a ResNet-50 classifier identified the presence of PV plants in image patches. Then, a UNet++ segmentation model with MobileNet V3 backbone extracted precise boundaries. Training datasets were prepared with 2804 samples for the classifier and 5400 samples for the segmentation model, both subjected to data augmentation. Predicted PV plant boundaries were refined by merging vectors within 1 km, ensuring accurate mapping and comprehensive identification.",
+   "3.PV plants in China cover 4146 km², with 22,425 arrays merged into 4347 plants, showing distinct spatial patterns. High-density regions include Xinjiang, Inner Mongolia, and Gansu, while provinces like Hubei, Anhui, and Zhejiang display lower density but more uniform distribution. Northwest China accounts for the largest PV plant area (33%) with dense clusters, followed by North China (22.9%) with a more dispersed layout. Significant provincial differences are evident, with large provinces like Xinjiang and Inner Mongolia having areas up to 300 km², while smaller regions like Hong Kong and Macau show no PV plants. These patterns reflect varied solar energy strategies across regions.",
+"4.The spatiotemporal characteristics of PV plants in China reveal regional and temporal variations. Small PV plants (0–1 km²) are evenly distributed across regions and dominate in number, while larger plants (>5 km²) are concentrated in Northwest China (68%). Most PV plants are built on flat terrain (0°–3° slope), except in Southwest China, where steeper slopes (>12°) dominate. Land cover varies significantly by region: Northwest China primarily uses vegetation or barren land (96%), Northern China favors vegetation (62%), and other regions prefer cropland. Between 2012 and 2022, PV plant construction shifted toward larger sizes, flatter slopes, and greater use of cropland and barren land, reflecting evolving site selection strategies.Over time, China's PV plants have shown notable trends. Small plants (0–1 km²) decreased by 3%, while medium-sized plants (1–2 km²) increased by 3%. Plants on flat terrain (0°–3° slope) grew by 6%, while those on steeper slopes declined. Land cover also shifted, with vegetation areas decreasing by 12%, while barren land and cropland increased, with cropland rising by 13%. These changes highlight evolving site selection strategies for PV plant construction.",
+"5.The method used in this study and the analysis of results also have some limitations. Firstly, the 10 m spatial resolution of the used Sentinel-2 imagery resulted in the inability to detect small objects, thus excluding the extraction and analysis of small-scale PV plants and rooftop PV in this study. Secondly, some important information about the PV plants cannot be directly extracted from remote sensing imagery, and further integration with other data is necessary.From a future perspective, the extraction process developed in this study can be applied to global monitoring, enabling a comparative analysis of PV development trends and corresponding policies across different countries. Additionally, the PV monitoring conducted in this study can be effectively integrated with PV potential assessment to evaluate the suitability of PV construction. Finally, further attention should be given to the environmental impact of PV plant, such as the effects of PV construction on the surrounding environment and issues related to the waste management of PV materials",
+    "6.This study, Unravelling Spatiotemporal Patterns of Solar Photovoltaic Plants Development in China in the 21st Century by Zirui Wang et al., was published on 15 February 2024 by IOP Publishing. For further communication or data access, you can contact the authors at wangzirui232@mails.ucas.ac.cn or fill out the provided form to leave a message for follow-up communication." +
+    "<form id='contactForm'>" +
+    "<input type='text' id='firstName' name='firstName' placeholder='First Name' required>" +
+    "<input type='text' id='lastName' name='lastName' placeholder='Last Name' required>" +
+    "<select id='identity' name='identity'>" +
+        "<option value='Student'>Student</option>" +
+        "<option value='Researcher'>Researcher</option>" +
+        "<option value='Professor'>Professor</option>" +
+        "<option value='Engineer'>Engineer</option>" +
+        "<option value='Scientist'>Scientist</option>" +
+        "<option value='Consultant'>Consultant</option>" +
+        "<option value='Manager'>Manager</option>" +
+        "<option value='Director'>Director</option>" +
+        "<option value='VP'>VP</option>" +
+        "<option value='CEO'>CEO</option>" +
+        "<option value='CIO'>CIO</option>" +
+        "<option value='Other'>Other</option>" +
+    "</select>" +
+    "<input type='text' id='fieldOfStudy' name='fieldOfStudy' placeholder='Field of Study' required>" +
+    "<input type='email' id='email' name='email' placeholder='Your Email Address' required>" +
+    "<textarea id='message' name='message' placeholder='Message'></textarea>" +
+    "<button type='submit' id='submitForm'>Submit</button>" +
+    "</form>"
+];
+        var currentIndex = 0;
+
+        function changeSlide(step) {
+            currentIndex += step;
+            if (currentIndex >= images.length) {
+                currentIndex = 0;
+            } else if (currentIndex < 0) {
+                currentIndex = images.length - 1;
+            }
+            document.getElementById('imageDisplay').src = images[currentIndex];
+            document.getElementById('textDisplay').innerText = texts[currentIndex];
+        }
+
+ document.addEventListener('DOMContentLoaded', function() {
+        function createLightning(x, y) {
+            var lightning = document.createElement('div');
+            lightning.className = 'lightning';
+            document.body.appendChild(lightning);
+            lightning.style.left = `${x}px`;
+            lightning.style.top = `${y - 50}px`; 
+            lightning.style.visibility = 'visible';
+            lightning.style.transform = `rotate(${Math.random() * 360}deg)`;
+
+           
+            setTimeout(() => {
+                lightning.style.opacity = '0';
+                setTimeout(() => {
+                    document.body.removeChild(lightning);
+                }, 150); 
+            }, 100); 
+        }
+
+        document.addEventListener('mousemove', function(e) {
+            if (Math.random() > 0.9) {
+                createLightning(e.clientX, e.clientY);
+            }
+        });
+    });
+
+function changeSlide(step) {
+    currentIndex += step;
+    if (currentIndex >= images.length) {
+        currentIndex = 0;
+    } else if (currentIndex < 0) {
+        currentIndex = images.length - 1;
+    }
+    document.getElementById('imageDisplay').src = images[currentIndex];
+    document.getElementById('textDisplay').innerHTML = texts[currentIndex]; 
+
+    if (currentIndex === 5) { 
+        document.getElementById('submitForm').addEventListener('click', function() {
+            alert("Form submitted! Please continue to follow our website, where the latest research findings will be published in the future.");
+var button = document.getElementById('submitForm');
+button.classList.add('buttonCoolEffect');
+
+        button.addEventListener('animationend', function() {
+            button.classList.remove('buttonCoolEffect');
+        });
+
+        });
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    var submitButton = document.getElementById('submitForm');
+    if (submitButton) {
+        submitButton.addEventListener('click', function(event) {
+            event.preventDefault();  
+
+            var animationElement = document.getElementById('successAnimation');
+            animationElement.style.display = 'block';
+
+            animationElement.style.animation = 'none';
+            animationElement.offsetHeight; 
+            animationElement.style.animation = null; 
+
+
+            setTimeout(function() {
+                animationElement.style.display = 'none';
+            }, 2000); 
+
+            alert("Form submitted! We will contact you soon.");
+        });
+    } else {
+        console.error('Submit button not found');
+    }
+});
+
+
+    </script>
+<div class="logo-container">
+    <img src="./CCUG.png" alt="Logo Animation" class="animated-logo">
+</div>
+
+</body>
+</html>
